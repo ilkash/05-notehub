@@ -32,7 +32,9 @@ export const deleteNote = async (noteID: string): Promise<Note> => {
   return response.data;
 };
 
-export const createNote = async (newNote: Omit<Note, "id">): Promise<Note> => {
+export const createNote = async (
+  newNote: Omit<Note, "id" | "createdAt" | "updatedAt">
+): Promise<Note> => {
   const response = await axios.post<Note>("/notes", newNote, {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`,

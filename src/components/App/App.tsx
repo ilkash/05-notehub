@@ -37,7 +37,7 @@ export default function App() {
       )}
       <header className={css.toolbar}>
         <SearchBox value={searchNote} onChange={updateSearchNote} />
-        {data && data?.totalPages > 0 && (
+        {data && data?.totalPages > 1 && (
           <Pagination
             pageCount={data?.totalPages}
             forcePage={currentPage}
@@ -50,7 +50,7 @@ export default function App() {
         </button>
       </header>
 
-      {data && <NoteList notes={data.notes} />}
+      {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
     </div>
   );
 }
