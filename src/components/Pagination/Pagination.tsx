@@ -3,12 +3,12 @@ import css from "./Pagination.module.css";
 interface PaginationProps {
   pageCount: number;
   onPageChange: (selectedItem: { selected: number }) => void;
-  currentPage?: number;
+  forcePage: number;
 }
 export default function Pagination({
   pageCount,
   onPageChange,
-  currentPage,
+  forcePage,
 }: PaginationProps) {
   return (
     <ReactPaginate
@@ -22,7 +22,7 @@ export default function Pagination({
       renderOnZeroPageCount={null}
       containerClassName={css.pagination}
       activeClassName={css.active}
-      forcePage={currentPage} // щоб можна було контролювати ззовні
+      forcePage={forcePage} // щоб можна було контролювати ззовні
     />
   );
 }

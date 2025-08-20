@@ -11,7 +11,7 @@ export const fetchNotes = async (
   page: number,
   mySearchNote: string
 ): Promise<FetchNotesResponse> => {
-  const response = await axios.get<FetchNotesResponse>("./notes", {
+  const response = await axios.get<FetchNotesResponse>("/notes", {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`,
     },
@@ -23,8 +23,8 @@ export const fetchNotes = async (
   return response.data;
 };
 
-export const deleteNote = async (noteID: number) => {
-  const response = await axios.delete<Note>(`./notes/${noteID}`, {
+export const deleteNote = async (noteID: string): Promise<Note> => {
+  const response = await axios.delete<Note>(`/notes/${noteID}`, {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`,
     },
@@ -32,8 +32,8 @@ export const deleteNote = async (noteID: number) => {
   return response.data;
 };
 
-export const createNote = async (newNote: Omit<Note, "id">) => {
-  const response = await axios.post<Note>("./notes", newNote, {
+export const createNote = async (newNote: Omit<Note, "id">): Promise<Note> => {
+  const response = await axios.post<Note>("/notes", newNote, {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`,
     },

@@ -28,6 +28,7 @@ export default function NoteForm({ onClose, onSuccess }: NoteFormProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["note"] });
       onSuccess();
+      onClose();
     },
     onError: () => {
       console.log("fghtycyd");
@@ -50,10 +51,10 @@ export default function NoteForm({ onClose, onSuccess }: NoteFormProps) {
 
   const OrderFormSchema = Yup.object().shape({
     title: Yup.string()
-      .min(3, "title must be at least 2 characters")
+      .min(3, "title must be at least 3 characters")
       .max(50, "tittle is too long")
       .required("title is required!"),
-    content: Yup.string().max(500, "too long").required("content is required!"),
+    content: Yup.string().max(500, "too long"),
     tag: Yup.string()
       .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"])
       .required("tag is required!"),
@@ -92,7 +93,7 @@ export default function NoteForm({ onClose, onSuccess }: NoteFormProps) {
           <label htmlFor={`${fieldId}-tag`}>Tag</label>
           <Field
             as="select"
-            id={`${fieldId}-title`}
+            id={`${fieldId}-tag`}
             name="tag"
             className={css.select}
           >

@@ -19,7 +19,10 @@ export default function App() {
     placeholderData: keepPreviousData,
   });
   const updateSearchNote = useDebouncedCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => setSearchNote(e.target.value),
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchNote(e.target.value);
+      setCurrentPage(0);
+    },
     300
   );
   const openModal = () => setIsModalOpen(true);
@@ -37,7 +40,7 @@ export default function App() {
         {data && data?.totalPages > 0 && (
           <Pagination
             pageCount={data?.totalPages}
-            currentPage={currentPage}
+            forcePage={currentPage}
             onPageChange={(event) => setCurrentPage(event.selected)}
           />
         )}
