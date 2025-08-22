@@ -10,12 +10,12 @@ import SearchBox from "../SearchBox/SearchBox";
 import { useDebouncedCallback } from "use-debounce";
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchNote, setSearchNote] = useState("");
 
   const { data } = useQuery({
     queryKey: ["note", currentPage, searchNote],
-    queryFn: () => fetchNotes(currentPage + 1, searchNote),
+    queryFn: () => fetchNotes(currentPage, searchNote),
     placeholderData: keepPreviousData,
   });
   const updateSearchNote = useDebouncedCallback(
@@ -37,10 +37,10 @@ export default function App() {
       )}
       <header className={css.toolbar}>
         <SearchBox value={searchNote} onChange={updateSearchNote} />
-        {data && data?.totalPages > 1 && (
+        {data && data?.totalPages > 0 && (
           <Pagination
             pageCount={data?.totalPages}
-            forcePage={currentPage}
+            forcePage={currentPage - 1}
             onPageChange={(event) => setCurrentPage(event.selected)}
           />
         )}
