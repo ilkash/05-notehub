@@ -21,7 +21,7 @@ export default function App() {
   const updateSearchNote = useDebouncedCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchNote(e.target.value);
-      setCurrentPage(0);
+      setCurrentPage(1);
     },
     300
   );
@@ -37,11 +37,11 @@ export default function App() {
       )}
       <header className={css.toolbar}>
         <SearchBox value={searchNote} onChange={updateSearchNote} />
-        {data && data?.totalPages > 0 && (
+        {data && data?.totalPages > 1 && (
           <Pagination
             pageCount={data?.totalPages}
             forcePage={currentPage - 1}
-            onPageChange={(event) => setCurrentPage(event.selected)}
+            onPageChange={(event) => setCurrentPage(event.selected + 1)}
           />
         )}
 
